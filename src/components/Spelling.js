@@ -1,16 +1,37 @@
 import React, { useState, useEffect } from 'react';
 import { useSpeechSynthesis } from 'react-speech-kit';
 import SpellingExercise from './SpellingExercise'
-import { UNSUPPORTED_BROWSER } from '../constants';
+import UnsupportedBrowser from './UnsupportedBrowser'
+import Loading from './Loading'
+import { SpellingProvider } from '../providers'
 
 const Speech = () => {
-  const { speak, supported } = useSpeechSynthesis()
-  // TODO: fetch word from BE
-  // TODO: pass the word from BE to SPELLING EXERCISE
+  const { supported, speak } = useSpeechSynthesis()
+  const [exercises, setExercises] = useState([])
+  const [current, setCurrent] = useState(0)
+  const [loading, setLoading] = useState(true)
+  
+  useEffect(() => {
+    const fetchApi = async () => {
+      const data = await SpellingProvider.fetchExercises({})
+      setExercises(data)
+      setCurrent(0)
+      setLoading(false)
+    }
+    fetchApi()
+  }, [])
 
+  if (!supported) {
+    return <UnsupportedBrowser />
+  }
+
+  const exercise = exercises[current] || ''
   return (
     <div>
-      {supported ? <SpellingExercise text='todo' speak={speak} /> : <strong>{UNSUPPORTED_BROWSER}</strong>}
+      {loading ?
+        <Loading /> :
+        <SpellingExercise text={exercise} speak={speak} />
+      }
     </div>
   )
 }

@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 import PropTypes from 'prop-types';
 
-const SpellingExercise = ({text, speak}) => {
+const SpellingExercise = ({ text, speak }) => {
   // TODO: show text in the UI
   return (
     <Fragment>
