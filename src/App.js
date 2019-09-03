@@ -4,7 +4,7 @@ import Speech from './components/Spelling';
 
 function App() {
   return (
-    <div className="App">
+    <div className='App'>
       <header>Spelling Exercise</header>
       <Speech />
     </div>
