@@ -15,11 +15,9 @@ export const GRADES = {
 };
 
 export const GRADE_APPROVED_MSG = 'Outta boy!';
-export const GRADE_WARNING_MSG =
-  'You had a little error in your exercise, check below before moving to the next one';
-export const GRADE_REJECTED_MSG =
-  'You had errors on your exercise, check below and repeat it';
+export const GRADE_WARNING_MSG = 'Almost perfect, check the difference';
+export const GRADE_REJECTED_MSG = 'Oops you may need to try again';
 
-export const MESSAGE_SUCCESS = 'SUCCESS';
-export const MESSAGE_WARNING = 'WARNING';
-export const MESSAGE_DANGER = 'DANGER';
+export const MESSAGE_SUCCESS = 'success';
+export const MESSAGE_WARNING = 'warning';
+export const MESSAGE_ERROR = 'error';

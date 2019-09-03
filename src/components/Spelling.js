@@ -12,7 +12,7 @@ import {
   GRADE_WARNING_MSG,
   GRADE_REJECTED_MSG,
   MESSAGE_SUCCESS,
-  MESSAGE_DANGER,
+  MESSAGE_ERROR,
   MESSAGE_WARNING,
 } from '../constants';
 
@@ -44,7 +44,7 @@ const Spelling = () => {
     } else if (result.grade === GRADES.WARNING) {
       setMsg({ text: GRADE_WARNING_MSG, type: MESSAGE_WARNING });
     } else if (result.grade === GRADES.REJECTED) {
-      setMsg({ text: GRADE_REJECTED_MSG, type: MESSAGE_DANGER });
+      setMsg({ text: GRADE_REJECTED_MSG, type: MESSAGE_ERROR });
     }
 
     setExercise(result.next);
@@ -57,7 +57,7 @@ const Spelling = () => {
 
   return (
     <div>
-      {msg && <Message msg={msg.text} type={msg.type} />}
+      <Message msg={msg} setMsg={setMsg} />
       <Diff grade={grade} />
       {loading ? (
         <Loading />

@@ -1,12 +1,26 @@
 import React, { Fragment, useState, useEffect } from 'react';
+import Button from '@material-ui/core/Button';
+import ButtonGroup from '@material-ui/core/ButtonGroup';
+import BackspaceOutlined from '@material-ui/icons/BackspaceOutlined';
+import SendOutlinedIcon from '@material-ui/icons/SendOutlined';
+import HeadsetOutlinedIcon from '@material-ui/icons/HeadsetOutlined';
+import { makeStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import SpellInput from './SpellInput';
 import SpellLetters from './SpellLetters';
 import { shuffleArray } from '../utils/shuffle';
 
+const useStyles = makeStyles({
+  root: {
+    marginTop: '3vh',
+    marginBottom: '3vh',
+  },
+});
+
 const SpellingExercise = ({ text, speak, gradeResult }) => {
   const [userInput, setUserInput] = useState([]);
   const [letters, setLetters] = useState([]);
+  const classes = useStyles();
 
   useEffect(() => {
     let shuffled = text;
@@ -46,24 +60,37 @@ const SpellingExercise = ({ text, speak, gradeResult }) => {
 
   return (
     <Fragment>
-      <div>
-        <SpellInput text={text} userInput={userInput} />
-        <button onClick={() => speak({ text })}>Listen</button>
-        {userInput.length > 0 && (
-          <button onClick={() => removeLastLetter()}>Delete</button>
-        )}
-        {userInput.length === text.length && (
-          <button
+      <div className={classes.root}>
+        <ButtonGroup>
+          <Button
+            variant='contained'
+            color='primary'
+            onClick={() => speak({ text })}
+          >
+            <HeadsetOutlinedIcon />
+          </Button>
+          <Button
+            variant='contained'
+            disabled={userInput.length <= 0}
+            onClick={() => removeLastLetter()}
+          >
+            <BackspaceOutlined />
+          </Button>
+          <Button
+            variant='contained'
+            color='secondary'
+            disabled={userInput.length !== text.length}
             onClick={() =>
               gradeResult(
                 userInput.reduce((value, next) => `${value}${next.letter}`, ''),
               )
             }
           >
-            Grade
-          </button>
-        )}
+            <SendOutlinedIcon />
+          </Button>
+        </ButtonGroup>
       </div>
+      <SpellInput text={text} userInput={userInput} />
       <SpellLetters letters={letters} updateInput={updateInput} />
     </Fragment>
   );
