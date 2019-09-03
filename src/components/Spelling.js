@@ -30,7 +30,7 @@ const Speech = () => {
     <div>
       {loading ?
         <Loading /> :
-        <SpellingExercise text={exercise} speak={speak} />
+        <SpellingExercise text={exercise} speak={speak} gradeResult={() => console.warn('TODO: send data to grade')} />
       }
     </div>
   )
