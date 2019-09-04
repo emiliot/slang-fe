@@ -21,3 +21,4 @@ export const GRADE_REJECTED_MSG = 'Oops you may need to try again';
 export const MESSAGE_SUCCESS = 'success';
 export const MESSAGE_WARNING = 'warning';
 export const MESSAGE_ERROR = 'error';
+export const MESSAGE_INFO = 'info';

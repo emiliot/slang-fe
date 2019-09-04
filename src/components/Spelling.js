@@ -58,7 +58,6 @@ const Spelling = () => {
   return (
     <div>
       <Message msg={msg} setMsg={setMsg} />
-      <Diff grade={grade} />
       {loading ? (
         <Loading />
       ) : (
@@ -68,6 +67,7 @@ const Spelling = () => {
           gradeResult={gradeResult}
         />
       )}
+      <Diff grade={grade} />
     </div>
   );
 };

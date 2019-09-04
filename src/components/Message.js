@@ -10,7 +10,12 @@ import CloseIcon from '@material-ui/icons/Close';
 import { amber, green } from '@material-ui/core/colors';
 import Snackbar from '@material-ui/core/Snackbar';
 import SnackbarContent from '@material-ui/core/SnackbarContent';
-import { MESSAGE_SUCCESS, MESSAGE_ERROR, MESSAGE_WARNING } from '../constants';
+import {
+  MESSAGE_SUCCESS,
+  MESSAGE_ERROR,
+  MESSAGE_WARNING,
+  MESSAGE_INFO,
+} from '../constants';
 
 const variantIcon = {
   success: CheckCircleIcon,
@@ -27,6 +32,9 @@ const useStyles1 = makeStyles(theme => ({
   },
   warning: {
     backgroundColor: amber[700],
+  },
+  info: {
+    backgroundColor: theme.palette.primary.main,
   },
   icon: {
     fontSize: 20,
@@ -75,8 +83,12 @@ MySnackbarContentWrapper.propTypes = {
   className: PropTypes.string,
   message: PropTypes.string,
   onClose: PropTypes.func,
-  variant: PropTypes.oneOf([MESSAGE_SUCCESS, MESSAGE_ERROR, MESSAGE_WARNING])
-    .isRequired,
+  variant: PropTypes.oneOf([
+    MESSAGE_SUCCESS,
+    MESSAGE_ERROR,
+    MESSAGE_WARNING,
+    MESSAGE_INFO,
+  ]).isRequired,
 };
 
 const Message = ({ msg, setMsg }) => {
@@ -87,7 +99,7 @@ const Message = ({ msg, setMsg }) => {
         vertical: 'bottom',
         horizontal: 'left',
       }}
-      open={msg}
+      open={Boolean(msg)}
       autoHideDuration={10000}
       onClose={() => setMsg(null)}
     >
@@ -101,7 +113,11 @@ const Message = ({ msg, setMsg }) => {
 };
 
 Message.propTypes = {
-  msg: PropTypes.string,
+  msg: PropTypes.shape({
+    text: PropTypes.string,
+    type: PropTypes.oneOf([MESSAGE_SUCCESS, MESSAGE_ERROR, MESSAGE_WARNING]),
+  }),
 };
 
 export default Message;
+export { MySnackbarContentWrapper };
